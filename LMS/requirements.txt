@@ -1,11 +1,11 @@
 asgiref==3.10.0
+dj-database-url==3.0.1
 Django==5.2.7
 django-cors-headers==4.9.0
 djangorestframework==3.16.1
 mysqlclient==2.2.7
-psycopg==3.2.12
-psycopg-binary==3.2.12
 psycopg2-binary==2.9.11
+python-decouple==3.8
 sqlparse==0.5.3
 typing_extensions==4.15.0
 tzdata==2025.2

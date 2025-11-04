@@ -24,8 +24,9 @@ SECRET_KEY = 'django-insecure-^i)_=5&1b4bzfe!)o98)ozsqp*y-+t+uj@pf4g!%fs@x78^qu^
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+import os
+ALLOWED_HOSTS = ['*']
 
-ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -74,18 +75,36 @@ WSGI_APPLICATION = 'LMS.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'lms_db',
-        'USER':'postgres',
-        'PASSWORD':'postgres',
-        'HOST':'localhost',
-        'PORT':'5432',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'lms_db',
+#         'USER':'postgres',
+#         'PASSWORD':'postgres',
+#         'HOST':'localhost',
+#         'PORT':'5432',
+#     }
+# }
+import dj_database_url
+from decouple import config
+
+if os.environ.get('DATABASE_URL'):
+    # Use database from environment (Render / cloud)
+    DATABASES = {
+        'default': dj_database_url.config(default=config('DATABASE_URL'))
     }
-}
-
-
+else:
+    # Use local PostgreSQL database
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'lms_db',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
